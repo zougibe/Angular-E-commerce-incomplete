@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { ReactiveFormsModule, FormControl, FormGroup } from '@angular/forms'
+import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms'
 import { AuthService } from '../../../core/services/auth/auth';
 import { Router } from '@angular/router';
 @Component({
@@ -17,11 +17,11 @@ export class Register {
 
 
   registerForm: FormGroup = new FormGroup({
-    name: new FormControl(''),
-    email: new FormControl(''),
-    password: new FormControl(''),
-    rePassword: new FormControl(''),
-    phone: new FormControl(''),
+    name: new FormControl('', [Validators.minLength(3), Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.minLength(8), Validators.required]),
+    rePassword: new FormControl('', [Validators.minLength(8), Validators.required]),
+    phone: new FormControl('', [Validators.pattern(/^01[0125][0-9]{8}$/)]),
   })
 
 

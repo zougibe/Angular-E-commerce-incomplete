@@ -16,6 +16,19 @@
         class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 start-10">Full
         Name</label>
     </div>
+    @if (registerForm.get('name')?.errors && registerForm.get('name')?.touched) {
+    <div class="bg-red-100 border border-red-700 rounded-lg p-3 texted-red-800">
+      @if (registerForm.get('name')?.errors?.['required']) {
+      <p>Name is Required</p>
+      @if (registerForm.get('name')?.errors?.['maxLength']) {
+      }
+      <p>Name maxLength is 10</p>
+      @if (registerForm.get('name')?.errors?.['minLength']) {
+      }
+      <p>Name minLength is 3</p>
+      }
+    </div>
+    }
 
     <!-- Email -->
     <div class="relative">
@@ -26,6 +39,17 @@
       <label for="email"
         class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 start-10">E-mail</label>
     </div>
+
+    @if (registerForm.get('email')?.errors && registerForm.get('email')?.touched) {
+    <div class="bg-red-100 border border-red-700 rounded-lg p-3 texted-red-800">
+      @if (registerForm.get('email')?.errors?.['required']) {
+      <p>Email is Required</p>
+      }
+      @if (registerForm.get('email')?.errors?.['email']) {
+      <p>Enter Valid Email</p>
+      }
+    </div>
+    }
 
     <!-- Phone -->
     <div class="relative">
@@ -38,6 +62,17 @@
         Number</label>
     </div>
 
+    @if (registerForm.get('phone')?.errors && registerForm.get('phone')?.touched) {
+    <div class="bg-red-100 border border-red-700 rounded-lg p-3 texted-red-800">
+      @if (registerForm.get('phone')?.errors?.['required']) {
+      <p>phone is Required</p>
+      }
+      @if (registerForm.get('phone')?.errors?.['pattern']) {
+      <p>Enter Valid phone</p>
+      }
+    </div>
+    }
+
     <!-- Password -->
     <div class="relative">
       <i class="fa fa-lock absolute left-3 top-4 text-gray-400"></i>
@@ -47,6 +82,13 @@
       <label for="password"
         class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 start-10">Password</label>
     </div>
+    @if (registerForm.get('password')?.errors && registerForm.get('password')?.touched) {
+    <div class="bg-red-100 border border-red-700 rounded-lg p-3 texted-red-800">
+      @if (registerForm.get('password')?.errors?.['required']) {
+      <p>password is Required</p>
+      }
+    </div>
+    }
 
     <!-- Confirm Password -->
     <div class="relative">
@@ -58,11 +100,19 @@
         class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 start-10">Confirm
         Password</label>
     </div>
+    @if (registerForm.get('rePassword')?.errors && registerForm.get('rePassword')?.touched) {
+    <div class="bg-red-100 border border-red-700 rounded-lg p-3 texted-red-800">
+      @if (registerForm.get('rePassword')?.errors?.['required']) {
+      <p>Confirm password is Required</p>
+      }
+    </div>
+    }
+
     @if(errMsg){
     <p class="text-center text-sm text-red-600 dark:text-red-400 mt-3">{{errMsg}}</p>
     }
     <!-- Signup Button -->
-    <button type="submit"
+    <button [disabled]="registerForm.invalid" type="submit"
       class="w-full text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-semibold rounded-lg text-md px-5 py-3 text-center">
       @if (isLoading) {
       <i class="fa fa-spinner fa-spin"></i>
