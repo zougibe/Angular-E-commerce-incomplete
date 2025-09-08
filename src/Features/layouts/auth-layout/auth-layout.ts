@@ -5,7 +5,7 @@ import { Navbar } from "../navbar/navbar";
 
 @Component({
   selector: 'app-auth-layout',
-  imports: [RouterOutlet, Navbar],
+  imports: [RouterOutlet],
   templateUrl: './auth-layout.html',
   styleUrl: './auth-layout.css'
 })
