@@ -1,0 +1,112 @@
+<nav
+  class="bg-white border-b border-gray-200 dark:bg-gray-900 shadow-md fixed w-full z-20 top-0 start-0 transition-colors duration-300">
+  <div class="max-w-screen-5xl flex flex-wrap items-center justify-between mx-auto px-6 py-4">
+
+    <!-- Logo -->
+    <a routerLink="/home" class="flex items-center space-x-3 rtl:space-x-reverse">
+      <svg xmlns="http://www.w3.org/2000/svg" width="200" height="40" viewBox="0 0 250 80">
+        <!-- Lightning Bolt -->
+        <polygon points="25,5 10,40 25,40 15,75 40,35 25,35" fill="#DC2626" />
+        <!-- Brand Name -->
+        <text x="60" y="50" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="bold"
+          class="fill-gray-900 dark:fill-white">
+          FASTBUY
+        </text>
+      </svg>
+    </a>
+
+    <!-- Mobile Menu Button -->
+    <button data-collapse-toggle="navbar-default" type="button"
+      class="inline-flex items-center p-2 w-10 h-10 justify-center text-gray-700 rounded-lg md:hidden hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+      aria-controls="navbar-default" aria-expanded="false">
+      <span class="sr-only">Open main menu</span>
+      <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+        stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+
+    <!-- Menu -->
+    <div class="hidden w-full md:flex md:items-center md:w-auto" id="navbar-default">
+
+      <!-- Left Nav Links -->
+      <ul class="flex flex-col md:flex-row md:space-x-8 mt-4 md:mt-0 font-medium">
+        @if(showlinks) {
+        <li>
+          <a routerLink="/home" routerLinkActive="text-red-600 border-b-2 border-red-600"
+            class="block py-2 px-3 text-gray-700 dark:text-gray-200 hover:text-red-600 transition">
+            Home
+          </a>
+        </li>
+        <li>
+          <a routerLink="/product" routerLinkActive="text-red-600 border-b-2 border-red-600"
+            class="block py-2 px-3 text-gray-700 dark:text-gray-200 hover:text-red-600 transition">
+            Product
+          </a>
+        </li>
+        <li>
+          <a routerLink="/cart" routerLinkActive="text-red-600 border-b-2 border-red-600"
+            class="relative block py-2 px-3 text-gray-700 dark:text-gray-200 hover:text-red-600 transition">
+            Cart
+            <!-- Cart Badge -->
+            <span class="absolute -top-1 -right-2 bg-red-600 text-white text-xs px-1.5 py-0.5 rounded-full">3</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/brands" routerLinkActive="text-red-600 border-b-2 border-red-600"
+            class="block py-2 px-3 text-gray-700 dark:text-gray-200 hover:text-red-600 transition">
+            Brands
+          </a>
+        </li>
+        <li>
+          <a routerLink="/categories" routerLinkActive="text-red-600 border-b-2 border-red-600"
+            class="block py-2 px-3 text-gray-700 dark:text-gray-200 hover:text-red-600 transition">
+            Categories
+          </a>
+        </li>
+        }
+      </ul>
+
+      <!-- Right Side -->
+      <ul class="ms-auto flex items-center space-x-6 mt-4 md:mt-0">
+
+        <!-- Search Bar -->
+        <li class="hidden md:block">
+          <div class="relative">
+            <input type="text" placeholder="Search products..."
+              class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700">
+            <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+          </div>
+        </li>
+
+        <!-- Social Icons -->
+        @if (showlinks) {
+        <li class="hidden md:flex space-x-3 text-gray-500 dark:text-gray-400">
+          <i class="fa-brands fa-facebook hover:text-red-600 transition cursor-pointer"></i>
+          <i class="fa-brands fa-linkedin hover:text-red-600 transition cursor-pointer"></i>
+          <i class="fa-brands fa-x-twitter hover:text-red-600 transition cursor-pointer"></i>
+          <i class="fa-brands fa-instagram hover:text-red-600 transition cursor-pointer"></i>
+        </li>
+        <li>
+          <a routerLink="/home" class="px-4 py-2 text-gray-600 dark:text-gray-200 hover:text-red-600 transition">
+            Sign Out
+          </a>
+        </li>
+        }
+        @else {
+        <li>
+          <a routerLink="/login"
+            class="px-4 py-2 border border-red-600 text-red-600 rounded-lg hover:bg-red-600 hover:text-white transition">
+            Login
+          </a>
+        </li>
+        <li>
+          <a routerLink="/sign-up" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+            Signup
+          </a>
+        </li>
+        }
+      </ul>
+    </div>
+  </div>
+</nav>
