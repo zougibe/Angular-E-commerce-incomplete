@@ -1,60 +1,197 @@
-# Routing
+# 🛒 E-Commerce Platform  
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.1.
+This repository contains the **E-commerce Platform**, which includes a **backend REST API** (for managing products, orders, users, payments, etc.) and a **modern frontend application** built with Angular and Tailwind CSS. The goal of this project is to provide a scalable full-stack e-commerce solution.  
 
-## Development server
+---
 
-To start a local development server, run:
+## 🚀 Features  
 
+### Backend (Node.js/Express API)
+- 🔑 User authentication & authorization (JWT-based)  
+- 📦 Product management (CRUD operations)  
+- 🛍️ Cart & checkout APIs  
+- 💳 Order management & payment integration  
+- 📊 Admin endpoints for managing store data  
+
+👉 **API Documentation:** [Postman Docs](https://documenter.getpostman.com/view/5709532/2s93JqTRWN)  
+
+---
+
+### Frontend (Angular)
+- 🎨 UI built with **Angular** + **Tailwind CSS** + **Flowbite**  
+- 🛍️ Product listing, filtering & searching  
+- 🛒 Shopping cart & checkout flow  
+- 👤 User login, registration & profile management  
+- 📦 Order history & tracking  
+- 📱 Responsive & mobile-first design  
+
+---
+
+## 🛠️ Tech Stack  
+
+**Backend:**  
+- Node.js / Express.js  
+- MongoDB  
+- JWT for authentication  
+- Postman (API documentation/testing)  
+
+**Frontend:**  
+- Angular  
+- Tailwind CSS  
+- Flowbite (UI components)  
+- TypeScript  
+
+---
+
+## 🏗️ System Architecture  
+```mermaid
+graph TD
+
+User[👤 User] -->|HTTP/HTTPS| Frontend[🌐 Angular App<br/>Tailwind + Flowbite]
+Frontend -->|REST API Calls| Backend[⚙️ Node.js + Express API]
+Backend -->|Read/Write| Database[(🗄️ MongoDB)]
+
+subgraph Frontend
+  AngularUI[UI Components]
+end
+
+subgraph Backend
+  Auth[Authentication Service]
+  Products[Product Service]
+  Orders[Order Service]
+  Payments[Payment Service]
+end
+
+Backend --> Auth
+Backend --> Products
+Backend --> Orders
+Backend --> Payments
+```
+
+---
+
+## 📌 Example API Usage  
+
+### 🔐 User Registration  
+
+**cURL**
 ```bash
+curl -X POST http://localhost:5000/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"name":"John Doe", "email":"john@example.com", "password":"123456"}'
+```
+
+**Angular (HttpClient)**  
+```ts
+this.http.post('/api/auth/register', {
+  name: 'John Doe',
+  email: 'john@example.com',
+  password: '123456'
+}).subscribe(res => console.log(res));
+```
+
+---
+
+### 🔑 User Login  
+
+**cURL**
+```bash
+curl -X POST http://localhost:5000/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"john@example.com", "password":"123456"}'
+```
+
+**Angular**
+```ts
+this.http.post('/api/auth/login', {
+  email: 'john@example.com',
+  password: '123456'
+}).subscribe(token => localStorage.setItem('token', token));
+```
+
+---
+
+### 🛍️ Fetch Products  
+
+**cURL**
+```bash
+curl -X GET http://localhost:5000/api/products
+```
+
+**Angular**
+```ts
+this.http.get('/api/products')
+  .subscribe(products => this.products = products);
+```
+
+---
+
+### 🛒 Add Item to Cart (authorized endpoint)  
+
+**cURL**
+```bash
+curl -X POST http://localhost:5000/api/cart \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <your-jwt-token>" \
+  -d '{"productId":"12345", "quantity":2}'
+```
+
+**Angular**
+```ts
+this.http.post('/api/cart', {
+  productId: '12345',
+  quantity: 2
+}, {
+  headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+}).subscribe(res => console.log(res));
+```
+
+---
+
+## ⚡ Getting Started  
+
+### Prerequisites  
+- Node.js >= 16  
+- npm or yarn  
+- MongoDB instance  
+- Angular CLI (`npm install -g @angular/cli`)  
+
+### Clone the Repository  
+```bash
+git clone https://github.com/your-username/ecommerce-platform.git
+cd ecommerce-platform
+```
+
+### Backend Setup  
+```bash
+cd backend
+npm install
+cp .env.example .env   # configure environment variables
+npm run dev
+```
+
+### Frontend Setup  
+```bash
+cd frontend
+npm install
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+App will run at: [http://localhost:4200](http://localhost:4200)
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 📚 API Reference  
+👉 [Full Postman API Docs](https://documenter.getpostman.com/view/5709532/2s93JqTRWN)
 
+---
+
+## 🧪 Testing  
 ```bash
-ng generate component component-name
+cd backend
+npm test
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-# Angular-E-commerce-incomplete
+Would you like me to **add a "Quick Demo GIF/Screenshots" section** to show the UI in action inside the README (like browse product → add to cart → checkout)? That could make it look more polished for GitHub readers.
