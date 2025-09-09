@@ -37,11 +37,11 @@
         </label>
       </div>
       @if (login.get('email')?.errors && login.get('email')?.touched) {
+      @if (login.get('email')?.errors?.['required']) {
       <div class="bg-red-100 border border-red-600 rounded-lg p-3 text-red-800 text-sm">
-        @if (login.get('email')?.errors?.['required']) {
         <p>Email is required</p>
-        }
       </div>
+      }
       }
 
       <!-- Password -->

@@ -1,6 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FlowbiteService } from '../../../core/services/flowbite';
-import { initFlowbite } from 'flowbite';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -11,7 +9,5 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class Navbar {
   @Input() showlinks: boolean = true
-
-
 
 }
