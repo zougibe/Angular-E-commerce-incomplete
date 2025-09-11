@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Auth } from '../../../Shared/interfaces/auth';
 import { jwtDecode } from 'jwt-decode'
 import { baseUrl } from '../../constant/BaseURL';
@@ -9,7 +9,7 @@ import { baseUrl } from '../../constant/BaseURL';
   providedIn: 'root'
 })
 export class AuthService {
-  userData: any = null
+  userData: BehaviorSubject<any> = new BehaviorSubject<any>('')
   constructor(private _http: HttpClient) {
 
   }
@@ -24,6 +24,10 @@ export class AuthService {
   decodeUserData() {
     const token = localStorage.getItem('userToken') || '';
     const decoded = jwtDecode(token);
-    this.userData = decoded
+    this.userData.subscribe({
+      next: (res) => {
+        this.userData.next(token)
+      }
+    })
   }
 }

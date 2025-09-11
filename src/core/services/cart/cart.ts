@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { baseUrl } from '../../constant/BaseURL';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -9,11 +9,17 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class CartService {
   token: any
+  cartNumber: BehaviorSubject<any> = new BehaviorSubject<any>(0)
 
   constructor(private http: HttpClient, @Inject(PLATFORM_ID) Id: object) {
     if (isPlatformBrowser(Id)) {
       this.token = { token: localStorage.getItem('userToken') || '' }
     }
+    this.getProductToCart().subscribe({
+      next: (res) => {
+        this.cartNumber.next(res.numberOfCartItems)
+      }
+    })
   }
 
   addProductToCart(productId: string): Observable<any> {
@@ -35,7 +41,7 @@ export class CartService {
 
   updateProductToCart(productId: string, count: number): Observable<any> {
     return this.http.put(`${baseUrl.baseUrl}/cart/${productId}`,
-      { count: productId },
+      { count: count },
       {
         headers: this.token
       }

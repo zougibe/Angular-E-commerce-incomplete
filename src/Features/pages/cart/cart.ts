@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CartService } from '../../../core/services/cart/cart';
 import { FormsModule } from '@angular/forms';
 
@@ -8,32 +8,39 @@ import { FormsModule } from '@angular/forms';
   imports: [FormsModule]
 })
 export class Cart implements OnInit {
-  cartData: any;
-  loading = true;
+  cartList: Cart[] = [];
+  cartId!: String
+  totalPrice: number = 0
+  loading: boolean = true
 
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
-    this.getCartData();
+    this.getCart();
   }
 
-  getCartData() {
+  getCart() {
     this.cartService.getProductToCart().subscribe({
       next: (res) => {
-        this.cartData = res.data;
+        this.cartList = res.data.totalCartPrice;
+        this.totalPrice = res.data.totalCartPrice
         this.loading = false;
+        this.cartService.cartNumber.next(res.numberOfCartItems)
+
+
       },
       error: (err) => {
         console.error(err);
-        this.loading = false;
-      }
+        // this.loading = false;
+      },
     });
   }
 
   updateCart(productId: string, count: number) {
     this.cartService.updateProductToCart(productId, count).subscribe({
       next: (res) => {
-        this.cartData = res.data;
+        this.totalPrice = res.data.totalCartPrice;
+        this.cartList = res.data.products
       }
     })
   }
@@ -41,15 +48,16 @@ export class Cart implements OnInit {
   removeItem(id: string) {
     this.cartService.removeProduct(id).subscribe({
       next: (res) => {
-        this.cartData = res.data;
-      }
+        this.totalPrice = res.data.totalCartPrice;
+        this.cartList = res.data.products
+      },
     })
   }
 
   clearAllItems() {
     this.cartService.clearCart().subscribe({
       next: (res) => {
-        this.cartData = ''
+        this.getCart()
       }
     })
   }
