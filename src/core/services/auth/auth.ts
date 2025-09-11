@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Auth } from '../../../Shared/interfaces/auth';
 import { jwtDecode } from 'jwt-decode'
+import { baseUrl } from '../../constant/BaseURL';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,11 @@ export class AuthService {
 
   }
   register(formData: Auth): Observable<any> {
-    return this._http.post('https://ecommerce.routemisr.com/api/v1/auth/signup', formData)
+    return this._http.post(`${baseUrl.baseUrl}/auth/signup`, formData)
   }
 
   login(formData: Auth): Observable<any> {
-    return this._http.post('https://ecommerce.routemisr.com/api/v1/auth/signin', formData)
+    return this._http.post(`${baseUrl.baseUrl}/auth/signin`, formData)
 
   }
   decodeUserData() {

@@ -1,6 +1,71 @@
-<section class="md:w-[80%] mx-auto">
-  <div class="products">
-    <h2 class="text-3xl font-light">Popular Products</h2>
-    <app-products></app-products>
+<section class="w-full">
+
+  <!-- 🎯 Hero Banner -->
+  <div class="relative rounded-xl overflow-hidden shadow-lg">
+    <!-- Added alt text and fixed potential path issue -->
+    <img src="../../../assets/images/slider-image-1.jpeg"
+      alt="Shop Banner - Various electronics and products on display" class="w-full h-[500px] object-cover">
+
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-center px-6">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg">
+        Welcome to <span class="text-red-500">FASTBUY</span>
+      </h1>
+      <p class="mt-4 text-lg text-gray-200 max-w-2xl">
+        Discover top deals, trending gadgets, and premium products at unbeatable prices.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <a routerLink="/products"
+          class="px-8 py-3 bg-red-600 text-white text-lg rounded-lg hover:bg-red-700 shadow-md transition">
+          Shop Now
+        </a>
+        <a routerLink="/categories"
+          class="px-8 py-3 border border-white text-white text-lg rounded-lg hover:bg-white hover:text-red-600 transition">
+          Explore Categories
+        </a>
+      </div>
+    </div>
   </div>
+
+  <!-- 🛍️ Featured Categories -->
+  <div class="max-w-7xl mx-auto px-6">
+    <h2 class="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
+      Shop by Category
+    </h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <!-- Added routerLink for navigation -->
+      <a routerLink="/products/electronics"
+        class="p-6 rounded-lg bg-gray-100 dark:bg-gray-800 text-center hover:shadow-lg transition cursor-pointer">
+        <i class="fa-solid fa-mobile-screen text-4xl text-red-600 mb-3"></i>
+        <p class="font-medium text-gray-800 dark:text-gray-200">Electronics</p>
+      </a>
+      <a routerLink="/products/fashion"
+        class="p-6 rounded-lg bg-gray-100 dark:bg-gray-800 text-center hover:shadow-lg transition cursor-pointer">
+        <i class="fa-solid fa-shirt text-4xl text-red-600 mb-3"></i>
+        <p class="font-medium text-gray-800 dark:text-gray-200">Fashion</p>
+      </a>
+      <a routerLink="/products/laptops"
+        class="p-6 rounded-lg bg-gray-100 dark:bg-gray-800 text-center hover:shadow-lg transition cursor-pointer">
+        <i class="fa-solid fa-laptop text-4xl text-red-600 mb-3"></i>
+        <p class="font-medium text-gray-800 dark:text-gray-200">Laptops</p>
+      </a>
+      <a routerLink="/products/furniture"
+        class="p-6 rounded-lg bg-gray-100 dark:bg-gray-800 text-center hover:shadow-lg transition cursor-pointer">
+        <i class="fa-solid fa-couch text-4xl text-red-600 mb-3"></i>
+        <p class="font-medium text-gray-800 dark:text-gray-200">Furniture</p>
+      </a>
+    </div>
+  </div>
+
+  <!-- ⭐ Popular Products -->
+  <section class="max-w-10xl mx-auto px-6">
+    <h2 class="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
+      Popular Products
+    </h2>
+    <!-- Added input parameter to pass product data (assuming your component accepts an input) -->
+    <app-products></app-products>
+  </section>
+
+
+
 </section>

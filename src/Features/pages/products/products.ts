@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, input, OnInit } from '@angular/core';
 import { ProductService } from '../../../core/services/products/products';
 import { TitleCasePipe } from '@angular/common';
 import { ProductsList } from '../../../Shared/interfaces/products';
 import { FilterPipe } from "../../../Shared/pipes/filter-pipe";
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { CartService } from '../../../core/services/cart/cart';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-products',
@@ -17,9 +20,14 @@ export class Products implements OnInit {
   Math: any;
   searchValue: string = '';
 
-  constructor(private productService: ProductService) { }
+
+  constructor(private productService: ProductService, private cart: CartService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.getAllProduct()
+  }
+
+  getAllProduct() {
     this.productService.getProducts().subscribe({
       next: (res) => {
         this.productList = res.data;
@@ -32,5 +40,16 @@ export class Products implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  addProduct(productId: string) {
+    this.cart.addProductToCart(productId).subscribe({
+      next: (res) => {
+        this.toastr.success(res.message, 'Success', {
+          progressBar: true,
+          progressAnimation: 'increasing',
+        })
+      }
+    })
   }
 }

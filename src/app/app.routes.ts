@@ -13,6 +13,8 @@ import { authGuard } from '../core/guard/auth/auth-guard';
 import { checkTokenGuard } from '../core/guard/checkToken/check-token-guard';
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+
   {
     path: '', component: AuthLayout, canActivate: [checkTokenGuard], children: [
       { path: 'login', component: Login, title: "Login" },
@@ -21,7 +23,6 @@ export const routes: Routes = [
   },
   {
     path: '', component: MainLayout, children: [
-      { path: '', component: Home, title: "Home" },
       { path: 'home', component: Home, title: "Home" },
       { path: 'cart', component: Cart, canActivate: [authGuard], title: "Cart" },
       { path: 'product', component: Products, title: "Products" },

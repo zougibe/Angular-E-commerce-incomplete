@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ProductsList } from '../../../Shared/interfaces/products';
+import { baseUrl } from '../../constant/BaseURL';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  private API_URL = 'https://ecommerce.routemisr.com/api/v1/products/';
+  private API_URL = `${baseUrl.baseUrl}/products/`;
 
   constructor(private http: HttpClient) { }
 

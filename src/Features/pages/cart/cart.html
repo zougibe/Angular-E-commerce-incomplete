@@ -1,1 +1,85 @@
-<p>cart works!</p>
+<section class="max-w-full px-6 pt-6 bg-white dark:bg-gray-900 min-h-[100dvh] flex items-center justify-around">
+
+  @if(loading) {
+  <div class="flex justify-center items-center py-20">
+    <div class="animate-spin w-12 h-12 border-t-2 border-b-2 border-red-600 rounded-full"></div>
+  </div>
+  }
+
+  @if(!loading && cartData) {
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-700 dark:text-gray-300">
+      <thead class="text-xs uppercase bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" class="px-10 py-3"><span class="sr-only">Image</span></th>
+          <th scope="col" class="px-6 py-3">Product</th>
+          <th scope="col" class="px-6 py-3">Qty</th>
+          <th scope="col" class="px-6 py-3">Price</th>
+          <th scope="col" class="px-6 py-3">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(item of cartData.products; track item._id) {
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700">
+          <td class="p-4">
+            <img [src]="item.product.imageCover" class="w-16 md:w-24 rounded-md object-contain"
+              [alt]="item.product.title">
+          </td>
+          <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+            {{ item.product.title }}
+            <p class="text-xs text-gray-500 dark:text-gray-400">
+              Category: {{ item.product.category.name }}
+            </p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">
+              Brand: {{ item.product.brand.name }}
+            </p>
+          </td>
+          <td class="px-6 py-4">
+            <div class="flex items-center">
+              <button (click)="updateCart(item._id, item.count -1)"
+                class="h-7 w-7 flex items-center justify-center rounded-full border dark:border-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition">
+                <i class="fa-solid fa-minus text-[10px] text-gray-600 dark:text-gray-300"></i>
+              </button>
+              <input type="number" [(ngModel)]="item.count"
+                class="mx-2 w-14 text-center rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white text-sm py-1" />
+              <button (click)="updateCart(item._id, item.count +1)"
+                class="h-7 w-7 flex items-center justify-center rounded-full border dark:border-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition">
+                <i class="fa-solid fa-plus text-[10px] text-gray-600 dark:text-gray-300"></i>
+              </button>
+            </div>
+          </td>
+          <td class="px-6 py-4 font-semibold text-white">
+            {{ item.price }} EGP
+          </td>
+          <td class="px-6 py-4">
+            <button (click)="removeItem(item._id)"
+              class="text-red-600 dark:text-red-500 hover:underline font-medium">Remove</button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+
+  <div
+    class="w-full h-fit max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 p-6">
+    <h1 class="text-white text-5xl text-center mb-10">Cart Products</h1>
+    <div class="px-5 pb-5 flex-col gap-10 w-full">
+      <h1 class="text-3xl font-semibold text-center mb-5 w-[100%] text-gray-900 dark:text-white">{{
+        cartData.totalCartPrice
+        }}
+        EGP</h1>
+      <div class="flex items-center justify-between gap-16">
+        <button
+          class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium w-[100%] mx-auto rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-blue-800">
+          Order Now
+        </button>
+        <button class="text-white text-center bg-red-600 w-[90%] my-3 mx-auto py-2 rounded cursor-pointer"
+          (click)="clearAllItems()">Clear Cart</button>
+      </div>
+    </div>
+  </div>
+
+  }
+</section>
