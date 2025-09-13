@@ -9,7 +9,7 @@ import { baseUrl } from '../../constant/BaseURL';
   providedIn: 'root'
 })
 export class AuthService {
-  userData: BehaviorSubject<any> = new BehaviorSubject<any>('')
+  userData!: any
   constructor(private _http: HttpClient) {
 
   }
@@ -18,16 +18,14 @@ export class AuthService {
   }
 
   login(formData: Auth): Observable<any> {
+    // this.decodeUserData()
     return this._http.post(`${baseUrl.baseUrl}/auth/signin`, formData)
 
   }
   decodeUserData() {
     const token = localStorage.getItem('userToken') || '';
     const decoded = jwtDecode(token);
-    this.userData.subscribe({
-      next: (res) => {
-        this.userData.next(token)
-      }
-    })
+    return this.userData = decoded
+
   }
 }

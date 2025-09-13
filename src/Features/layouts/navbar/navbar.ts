@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { FlowbiteService } from '../../../core/services/flowbite/flowbite';
 import { AuthService } from '../../../core/services/auth/auth';
 import { CartService } from '../../../core/services/cart/cart';
@@ -14,20 +14,25 @@ export class Navbar {
   @Input() showlinks: boolean = true
   isLogin!: boolean
   cartNumber!: number
-  constructor(private flowbiteService: FlowbiteService, public auth: AuthService, private cart: CartService) {
-    auth.userData.subscribe((res: any) => {
-      if (res !== null) {
-        this.isLogin = true
-      } else {
-        this.isLogin = false
-      }
-    })
+  constructor(private flowbiteService: FlowbiteService, public auth: AuthService, private cart: CartService, private router: Router) {
+    if (auth.userData) {
+      this.isLogin = true
+    } else {
+      this.isLogin = false
+    }
 
-    this.cart.cartNumber.subscribe({
-      next: (res) => {
-        this.cartNumber = res
-      }
-    })
+    // this.cart.cartNumber.subscribe({
+    //   next: (res) => {
+    //     this.cartNumber = res
+    //   }
+    // })
+  }
+
+  signOut() {
+    localStorage.removeItem('userToken')
+    this.isLogin = false
+    this.router.navigate(["/login"]);
+
   }
 
 }

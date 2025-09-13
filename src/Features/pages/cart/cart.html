@@ -6,7 +6,9 @@
   </div>
   }
 
-  @if(!loading && cartList) {
+  @if(!loading) {
+
+  @if (totalPrice) {
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left rtl:text-right text-gray-700 dark:text-gray-300">
       <thead class="text-xs uppercase bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-400">
@@ -22,26 +24,27 @@
         @for(item of cartList; track item._id) {
         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700">
           <td class="p-4">
-            <img [src]="item.imageCover" class="w-16 md:w-24 rounded-md object-contain" [alt]="item.title">
+            <img [src]="item.product.imageCover" class="w-16 md:w-24 rounded-md object-contain"
+              [alt]="item.product.title">
           </td>
           <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-            {{ item.title }}
+            {{ item.product.title }}
             <p class="text-xs text-gray-500 dark:text-gray-400">
-              Category: {{ item.category.name }}
+              Category: {{ item.product.category.name }}
             </p>
             <p class="text-xs text-gray-500 dark:text-gray-400">
-              Brand: {{ item.brand.name }}
+              Brand: {{ item.product.brand.name }}
             </p>
           </td>
           <td class="px-6 py-4">
             <div class="flex items-center">
-              <button (click)="updateCart(item._id, item.count -1)"
+              <button (click)="updateCart(item.product._id, item.count -1)"
                 class="h-7 w-7 flex items-center justify-center rounded-full border dark:border-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition">
                 <i class="fa-solid fa-minus text-[10px] text-gray-600 dark:text-gray-300"></i>
               </button>
               <input type="number" [(ngModel)]="item.count"
                 class="mx-2 w-14 text-center rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white text-sm py-1" />
-              <button (click)="updateCart(item._id, item.count +1)"
+              <button (click)="updateCart(item.product._id, item.count+1)"
                 class="h-7 w-7 flex items-center justify-center rounded-full border dark:border-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition">
                 <i class="fa-solid fa-plus text-[10px] text-gray-600 dark:text-gray-300"></i>
               </button>
@@ -51,7 +54,7 @@
             {{ item.price }} EGP
           </td>
           <td class="px-6 py-4">
-            <button (click)="removeItem(item._id)"
+            <button (click)="removeItem(item.product._id)"
               class="text-red-600 dark:text-red-500 hover:underline font-medium">Remove</button>
           </td>
         </tr>
@@ -79,11 +82,11 @@
       </div>
     </div>
   </div>
-
   }@else {
   <div class="flex-col items-center justify-center">
-    <h1 class="text-5xl font-medium">Cart is Empty</h1>
+    <h1 class="text-5xl font-medium text-white text-center mb-6">Cart is Empty</h1>
     <img src="assets/images/empty-cart.png" alt="">
   </div>
+  }
   }
 </section>

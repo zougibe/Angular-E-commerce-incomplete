@@ -1,13 +1,14 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CartService } from '../../../core/services/cart/cart';
 import { FormsModule } from '@angular/forms';
+import { Cart } from '../../../Shared/interfaces/cart';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.html',
   imports: [FormsModule]
 })
-export class Cart implements OnInit {
+export class Carts implements OnInit {
   cartList: Cart[] = [];
   cartId!: String
   totalPrice: number = 0
@@ -22,16 +23,18 @@ export class Cart implements OnInit {
   getCart() {
     this.cartService.getProductToCart().subscribe({
       next: (res) => {
-        this.cartList = res.data.totalCartPrice;
+        this.cartList = res.data.products;
         this.totalPrice = res.data.totalCartPrice
         this.loading = false;
         this.cartService.cartNumber.next(res.numberOfCartItems)
+        console.log(this.cartList);
+
 
 
       },
       error: (err) => {
         console.error(err);
-        // this.loading = false;
+        this.loading = false;
       },
     });
   }
@@ -45,11 +48,11 @@ export class Cart implements OnInit {
     })
   }
 
-  removeItem(id: string) {
-    this.cartService.removeProduct(id).subscribe({
+  removeItem(productId: string) {
+    this.cartService.removeProduct(productId).subscribe({
       next: (res) => {
-        this.totalPrice = res.data.totalCartPrice;
-        this.cartList = res.data.products
+        this.getCart()
+
       },
     })
   }

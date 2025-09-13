@@ -5,13 +5,13 @@ import { AuthService } from '../../services/auth/auth';
 export const authGuard: CanActivateFn = (route, state) => {
   let _Auth: AuthService = inject(AuthService)
   let router = inject(Router)
-  if (_Auth.userData !== null) {
-    console.log(_Auth.userData, 'success');
-
+  if (_Auth.userData) {
+    console.log(_Auth.userData, 'success af');
     return true
+  } else {
+    router.navigate(['/login'])
+    console.log(_Auth.userData, 'fail');
   }
-  router.navigate(['/login'])
-  console.log(_Auth.userData, 'fail');
 
   return false;
 };

@@ -42,9 +42,7 @@ export class CartService {
   updateProductToCart(productId: string, count: number): Observable<any> {
     return this.http.put(`${baseUrl.baseUrl}/cart/${productId}`,
       { count: count },
-      {
-        headers: this.token
-      }
+      { headers: this.token },
     )
   }
 

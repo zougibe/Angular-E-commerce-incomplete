@@ -48,6 +48,7 @@ export class Products implements OnInit {
         this.toastr.success(res.message, 'Success', {
           progressBar: true,
           progressAnimation: 'increasing',
+          closeButton: true,
         })
       }
     })
