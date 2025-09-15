@@ -3,6 +3,7 @@ import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { FlowbiteService } from '../../../core/services/flowbite/flowbite';
 import { AuthService } from '../../../core/services/auth/auth';
 import { CartService } from '../../../core/services/cart/cart';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-navbar',
@@ -12,13 +13,11 @@ import { CartService } from '../../../core/services/cart/cart';
 })
 export class Navbar {
   @Input() showlinks: boolean = true
-  isLogin!: boolean
+  isLogin: boolean = false
   cartNumber!: number
-  constructor(private flowbiteService: FlowbiteService, private auth: AuthService, private cart: CartService, private router: Router) {
+  constructor(private flowbiteService: FlowbiteService, private auth: AuthService, private cart: CartService, private router: Router, private toastr: ToastrService) {
     if (auth.userData) {
       this.isLogin = true
-    } else {
-      this.isLogin = false
     }
 
     this.cart.cartNumber.subscribe({
@@ -29,10 +28,12 @@ export class Navbar {
   }
 
   signOut() {
-    localStorage.removeItem('userToken')
     this.isLogin = false
-    this.router.navigate(["/login"]);
-
+    localStorage.removeItem('userToken')
+    this.toastr.error('You are singed out', 'Sign Out', {
+      timeOut: 3000,
+      progressBar: true
+    })
   }
 
 }
