@@ -171,11 +171,3 @@ If not yet decided, include a `LICENSE` file when ready.
 For questions or discussions, contact **Zougibe** or open an issue in this repository.
 
 ---
-
-```
-
----
-
-If you like, I can generate a filled-in README based on the current contents (what’s working vs missing) by inspecting the code. Do you want me to do that?
-::contentReference[oaicite:0]{index=0}
-```
