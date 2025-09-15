@@ -14,18 +14,18 @@ export class Navbar {
   @Input() showlinks: boolean = true
   isLogin!: boolean
   cartNumber!: number
-  constructor(private flowbiteService: FlowbiteService, public auth: AuthService, private cart: CartService, private router: Router) {
+  constructor(private flowbiteService: FlowbiteService, private auth: AuthService, private cart: CartService, private router: Router) {
     if (auth.userData) {
       this.isLogin = true
     } else {
       this.isLogin = false
     }
 
-    // this.cart.cartNumber.subscribe({
-    //   next: (res) => {
-    //     this.cartNumber = res
-    //   }
-    // })
+    this.cart.cartNumber.subscribe({
+      next: (res) => {
+        this.cartNumber = res
+      }
+    })
   }
 
   signOut() {

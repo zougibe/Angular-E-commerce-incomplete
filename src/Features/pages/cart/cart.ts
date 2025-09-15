@@ -2,11 +2,12 @@ import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CartService } from '../../../core/services/cart/cart';
 import { FormsModule } from '@angular/forms';
 import { Cart } from '../../../Shared/interfaces/cart';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.html',
-  imports: [FormsModule]
+  imports: [FormsModule, RouterLink]
 })
 export class Carts implements OnInit {
   cartList: Cart[] = [];
@@ -25,8 +26,10 @@ export class Carts implements OnInit {
       next: (res) => {
         this.cartList = res.data.products;
         this.totalPrice = res.data.totalCartPrice
+        this.cartId = res.cartId
+
         this.loading = false;
-        this.cartService.cartNumber.next(res.numberOfCartItems)
+        this.cartService.cartNumber.next(res.numOfCartItems)
         console.log(this.cartList);
 
 
@@ -43,7 +46,9 @@ export class Carts implements OnInit {
     this.cartService.updateProductToCart(productId, count).subscribe({
       next: (res) => {
         this.totalPrice = res.data.totalCartPrice;
-        this.cartList = res.data.products
+        this.cartList = res.data.products;
+        this.cartService.cartNumber.next(res.numOfCartItems)
+
       }
     })
   }
@@ -52,6 +57,7 @@ export class Carts implements OnInit {
     this.cartService.removeProduct(productId).subscribe({
       next: (res) => {
         this.getCart()
+        this.cartService.cartNumber.next(res.numOfCartItems)
 
       },
     })

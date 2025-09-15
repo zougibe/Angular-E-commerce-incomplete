@@ -20,8 +20,8 @@ export class AuthService {
   login(formData: Auth): Observable<any> {
     // this.decodeUserData()
     return this._http.post(`${baseUrl.baseUrl}/auth/signin`, formData)
-
   }
+
   decodeUserData() {
     const token = localStorage.getItem('userToken') || '';
     const decoded = jwtDecode(token);

@@ -1,7 +1,7 @@
 <section class="w-full">
 
   <!-- 🎯 Hero Banner -->
-  <div class="relative rounded-xl overflow-hidden shadow-lg">
+  <div class="relative  overflow-hidden shadow-lg">
     <!-- Added alt text and fixed potential path issue -->
     <img src="../../../assets/images/slider-image-1.jpeg"
       alt="Shop Banner - Various electronics and products on display" class="w-full h-[500px] object-cover">
@@ -26,35 +26,11 @@
       </div>
     </div>
   </div>
-
+  <app-home-slider />
   <!-- 🛍️ Featured Categories -->
-  <div class="max-w-7xl mx-auto px-6">
-    <h2 class="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
-      Shop by Category
-    </h2>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-      <!-- Added routerLink for navigation -->
-      <a routerLink="/products/electronics"
-        class="p-6 rounded-lg bg-gray-100 dark:bg-gray-800 text-center hover:shadow-lg transition cursor-pointer">
-        <i class="fa-solid fa-mobile-screen text-4xl text-red-600 mb-3"></i>
-        <p class="font-medium text-gray-800 dark:text-gray-200">Electronics</p>
-      </a>
-      <a routerLink="/products/fashion"
-        class="p-6 rounded-lg bg-gray-100 dark:bg-gray-800 text-center hover:shadow-lg transition cursor-pointer">
-        <i class="fa-solid fa-shirt text-4xl text-red-600 mb-3"></i>
-        <p class="font-medium text-gray-800 dark:text-gray-200">Fashion</p>
-      </a>
-      <a routerLink="/products/laptops"
-        class="p-6 rounded-lg bg-gray-100 dark:bg-gray-800 text-center hover:shadow-lg transition cursor-pointer">
-        <i class="fa-solid fa-laptop text-4xl text-red-600 mb-3"></i>
-        <p class="font-medium text-gray-800 dark:text-gray-200">Laptops</p>
-      </a>
-      <a routerLink="/products/furniture"
-        class="p-6 rounded-lg bg-gray-100 dark:bg-gray-800 text-center hover:shadow-lg transition cursor-pointer">
-        <i class="fa-solid fa-couch text-4xl text-red-600 mb-3"></i>
-        <p class="font-medium text-gray-800 dark:text-gray-200">Furniture</p>
-      </a>
-    </div>
+  <div class="mx-4">
+    <h1 class="text-3xl mb-6">Products Categories</h1>
+    <app-category-slider />
   </div>
 
   <!-- ⭐ Popular Products -->
@@ -62,7 +38,6 @@
     <h2 class="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
       Popular Products
     </h2>
-    <!-- Added input parameter to pass product data (assuming your component accepts an input) -->
     <app-products></app-products>
   </section>
 

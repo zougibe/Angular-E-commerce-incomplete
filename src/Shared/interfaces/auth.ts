@@ -4,4 +4,6 @@ export interface Auth {
   password: string,
   rePassword?: string,
   phone?: string,
+  resetCode?: string,
+  newPassword?: string,
 }

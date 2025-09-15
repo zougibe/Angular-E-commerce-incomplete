@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { CartService } from '../../../core/services/cart/cart';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../../core/services/auth/auth';
 
 
 @Component({
@@ -19,9 +20,17 @@ export class Products implements OnInit {
   loading = true;
   Math: any;
   searchValue: string = '';
+  isLogin!: boolean
 
 
-  constructor(private productService: ProductService, private cart: CartService, private toastr: ToastrService) { }
+
+  constructor(private productService: ProductService, private cart: CartService, private auth: AuthService, private toastr: ToastrService) {
+    if (auth.userData) {
+      this.isLogin = true
+    } else {
+      this.isLogin = false
+    }
+  }
 
   ngOnInit(): void {
     this.getAllProduct()
@@ -45,6 +54,7 @@ export class Products implements OnInit {
   addProduct(productId: string) {
     this.cart.addProductToCart(productId).subscribe({
       next: (res) => {
+        this.cart.cartNumber.next(res.numOfCartItems)
         this.toastr.success(res.message, 'Success', {
           progressBar: true,
           progressAnimation: 'increasing',

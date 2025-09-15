@@ -49,9 +49,11 @@
           </div>
         </div>
       </div>
+      @if (isLogin) {
       <button class="text-white text-center bg-red-600 w-[90%] my-3 mx-auto py-2 rounded cursor-pointer"
         (click)="addProduct(product._id)">Add to
         Cart</button>
+      }
     </div>
 
     }

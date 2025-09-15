@@ -3,13 +3,14 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { baseUrl } from '../../constant/BaseURL';
 import { isPlatformBrowser } from '@angular/common';
+import { shippingAddress } from '../../../Shared/interfaces/shippingAddress';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
   token: any
-  cartNumber: BehaviorSubject<any> = new BehaviorSubject<any>(0)
+  cartNumber: BehaviorSubject<any> = new BehaviorSubject<number>(0)
 
   constructor(private http: HttpClient, @Inject(PLATFORM_ID) Id: object) {
     if (isPlatformBrowser(Id)) {
@@ -17,7 +18,7 @@ export class CartService {
     }
     this.getProductToCart().subscribe({
       next: (res) => {
-        this.cartNumber.next(res.numberOfCartItems)
+        this.cartNumber.next(res.numOfCartItems)
       }
     })
   }
@@ -60,5 +61,15 @@ export class CartService {
         headers: this.token
       }
     )
+  }
+
+  checkout(cartId: any, payload: any): Observable<any> {
+    return this.http.post(`${baseUrl.baseUrl}/orders/checkout-session/${cartId}?url=http://localhost:4200`,
+      {
+        shippingAddress: payload
+      },
+      {
+        headers: this.token
+      })
   }
 }
