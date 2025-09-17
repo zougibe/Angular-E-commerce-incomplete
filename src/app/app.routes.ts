@@ -12,9 +12,9 @@ export const routes: Routes = [
       { path: 'resetPassword', loadComponent: () => import('../Features/auth/resetPassword/reset-password').then((c) => c.ResetPasswords), title: "ResetPassword" },
     ]
   },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: '', component: MainLayout, children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', loadComponent: () => import('../Features/pages/home/home').then((c) => c.Home), title: "Home" },
       { path: 'cart', loadComponent: () => import('../Features/pages/cart/cart').then((c) => c.Carts), canActivate: [authGuard], title: "Cart" },
       { path: 'allOrders', loadComponent: () => import('../Features/pages/all-orders/all-orders').then((c) => c.AllOrders), canActivate: [authGuard], title: "All Orders" },

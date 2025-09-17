@@ -1,6 +1,6 @@
 
 import { Component } from '@angular/core';
-import { ReactiveFormsModule, FormControl, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms'
+import { ReactiveFormsModule, FormControl, FormGroup, Validators, } from '@angular/forms'
 import { AuthService } from '../../../core/services/auth/auth';
 import { Router, RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
@@ -38,15 +38,9 @@ export class Login {
         if (res.message == 'success') {
           this.router.navigate(["/home"]);
           localStorage.setItem('userToken', res.token);
-          this.auth.decodeUserData();
+          this.auth.userData;
           this.errMsg = ''
         }
-      },
-      error: (err) => {
-        this.isLoading = false;
-        this.errMsg = err.error.message
-        console.log(err.error.message);
-
       }
     })
   }

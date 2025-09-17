@@ -97,7 +97,7 @@ export class ResetPasswords {
       next: (res) => {
         if (res.token) {
           localStorage.setItem('userToken', res.token);
-          this.auth.decodeUserData();
+          this.auth.userData;
           this.router.navigate(['/home'])
         }
       }

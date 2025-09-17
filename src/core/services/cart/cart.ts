@@ -3,7 +3,7 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { baseUrl } from '../../constant/BaseURL';
 import { isPlatformBrowser } from '@angular/common';
-import { shippingAddress } from '../../../Shared/interfaces/shippingAddress';
+
 
 @Injectable({
   providedIn: 'root'
@@ -26,40 +26,27 @@ export class CartService {
   addProductToCart(productId: string): Observable<any> {
     return this.http.post(`${baseUrl.baseUrl}/cart`,
       { productId: productId },
-      {
-        headers: this.token
-      }
     )
   }
 
   getProductToCart(): Observable<any> {
     return this.http.get(`${baseUrl.baseUrl}/cart`,
-      {
-        headers: this.token
-      }
     )
   }
 
   updateProductToCart(productId: string, count: number): Observable<any> {
     return this.http.put(`${baseUrl.baseUrl}/cart/${productId}`,
       { count: count },
-      { headers: this.token },
     )
   }
 
   removeProduct(productId: string): Observable<any> {
     return this.http.delete(`${baseUrl.baseUrl}/cart/${productId}`,
-      {
-        headers: this.token
-      }
     )
   }
 
   clearCart(): Observable<any> {
     return this.http.delete(`${baseUrl.baseUrl}/cart/`,
-      {
-        headers: this.token
-      }
     )
   }
 
@@ -67,9 +54,6 @@ export class CartService {
     return this.http.post(`${baseUrl.baseUrl}/orders/checkout-session/${cartId}?url=http://localhost:4200`,
       {
         shippingAddress: payload
-      },
-      {
-        headers: this.token
-      })
+      },)
   }
 }

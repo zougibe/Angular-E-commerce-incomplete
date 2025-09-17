@@ -30,6 +30,7 @@ export class Navbar {
   signOut() {
     this.isLogin = false
     localStorage.removeItem('userToken')
+    this.router.navigate(['/login'])
     this.toastr.error('You are singed out', 'Sign Out', {
       timeOut: 3000,
       progressBar: true
